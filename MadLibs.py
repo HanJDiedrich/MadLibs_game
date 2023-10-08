@@ -61,6 +61,10 @@ def blanks(script):
     #Now we get the order of and questions that should be asked to fill in the madlib
     return qOrder, script
 
+def replaceblank(fill, script):
+    fill_script = script.replace("_______", fill, 1)
+    return fill_script
+
 def questions(qOrder, script):
     print("Now ask a friend to fill in your MadLib!")
     play = input("press ENTER to continue\n")
@@ -83,7 +87,6 @@ def play():
     blanks(newScript)
     #blanks(newScript)[0] is the order list
     #blanks(newScript)[1] is the scipt with blanks
-    
     
 play()
 
