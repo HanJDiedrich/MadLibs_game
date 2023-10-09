@@ -67,13 +67,47 @@ def blanks(script):
             break
     #Now we get the order of and questions that should be asked to fill in the madlib
     return qOrder, script
-
-def initiatePlay(script):
-    print(f'Here is your MADLIB!\n{script}\n')
-    print("Now ask a friend to fill in your MadLib!")
-    play = input("press ENTER to continue\n")
-    #later add a secret easter egg input
+def easterEgg():
+    print('                                     ¶¶           ')
+    print('                                ¶1¶1111111¶       ')
+    print('        ¶¶111¶               ¶¶¶¶111111111¶¶¶1    ')
+    print('     ¶1¶¶¶¶¶111111¶         ¶¶¶1¶¶¶11111111¶1¶¶   ')
+    print('   ¶¶¶1¶1111111111¶¶1      ¶¶1¶¶¶1111111111111¶¶  ')
+    print('  ¶¶1¶¶1111111111111¶¶     ¶¶¶1¶¶¶¶1111111111111¶ ')
+    print('  ¶¶ ¶1111111111111111¶¶   ¶¶¶¶¶¶11¶111111111111¶ ')
+    print(' 11 ¶11111111111111111¶¶     ¶¶¶¶  ¶111111111111¶¶')
+    print('¶¶¶¶1111111111111111¶¶¶¶     1¶¶  11111111111111¶¶')
+    print('¶¶¶¶11111111111¶¶¶¶¶¶¶      1¶1¶¶1111111111111111¶')
+    print('¶¶1¶1111111111111¶¶¶¶¶¶     ¶¶¶¶¶¶11111111111111¶¶')
+    print('¶¶11111111111111111111111¶¶   ¶¶¶¶¶¶1111111111¶¶¶ ')
+    print(' 1¶111111111111111111¶¶¶¶¶¶    ¶¶¶¶11111111111¶1  ')
+    print('  ¶¶11111111111111111¶¶¶     ¶¶¶1111111111111¶1   ')
+    print('   ¶¶¶111111111111¶1¶¶¶    1¶¶111¶1111111¶11¶1    ')
+    print('    1¶¶¶11111111111¶¶¶¶111¶¶¶¶111111111¶11¶¶¶     ')
+    print('      ¶¶¶¶1111111111111¶¶¶¶1¶¶¶¶¶¶¶¶11¶11¶¶       ')
+    print('       ¶¶¶¶¶11111111111¶111¶   ¶¶¶111¶1¶¶¶        ')
+    print('         ¶¶¶¶¶¶111111111111¶  ¶¶¶111¶¶¶1          ')
+    print('            1¶¶¶¶¶11111111¶¶ ¶¶¶¶111¶¶            ')
+    print('              ¶¶¶¶¶¶¶1111111 ¶¶¶11¶¶1             ')
+    print('                 1¶¶¶¶¶¶1111¶¶¶1¶¶¶¶              ')
+    print('                    ¶¶¶¶¶¶1¶¶¶¶¶1¶                ')
+    print('                       ¶1¶¶¶1¶¶¶                  ')
+    print('                           11¶                    ')
     
+def initiatePlay(order, script):
+    if len(order) < 1:
+        print("You didn't add any blanks! There is no MADLIB :(")
+        quit()
+    else: 
+        print(f'Here is your MADLIB!\n{script}\n')
+        print("Now ask a friend to fill in your MadLib!")
+        play = input("Press ENTER to continue\n")
+        #later add a secret easter egg input
+        if play == 'never':
+            easterEgg()
+            quit()
+
+
 def replaceblank(fill, script):
     fill_script = script.replace("_______", fill, 1)
     return fill_script   
@@ -118,11 +152,16 @@ def questionsRecursive(order, script): #fill_script
         elif order[0] == 'm':
             fill = input('Enter a number: ')
         print()
-        #update the script
-        updated = replaceblank(fill, script)
-        order.remove(order[0])
-        #call recursive
-        questionsRecursive(order, updated)
+        #if no input
+        if len(fill) == 0:
+            print("You forgot to enter something! Try again! \n")
+            questionsRecursive(order, script)
+        else:
+            #update the script
+            updated = replaceblank(fill, script)
+            order.remove(order[0])
+            #call recursive
+            questionsRecursive(order, updated)
         
 def play():
     welcome()
@@ -130,7 +169,7 @@ def play():
     info = blanks(newScript)
     order = info[0]
     blank_script = info[1]
-    initiatePlay(blank_script)
+    initiatePlay(order, blank_script)
     questionsRecursive(order,blank_script)
     
 play()
@@ -148,3 +187,29 @@ number = **num**
 One **adj** day, **nos** went to visit the **nos**. The weather was **adj** and the temperature was **num** degrees. **nos** **ver** to the **nos**. At the **nos**, there were many **nop**. **nos** **adv** said "This is **adj**!!!
 
 '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
