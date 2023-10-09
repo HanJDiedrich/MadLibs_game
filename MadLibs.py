@@ -61,30 +61,62 @@ def blanks(script):
     #Now we get the order of and questions that should be asked to fill in the madlib
     return qOrder, script
 
+
 def replaceblank(fill, script):
     fill_script = script.replace("_______", fill, 1)
-    return fill_script
+    return fill_script   
+ 
+'''
+when the player inputs a word into the blank, it reprints the script with the filled word.
+do this for every question.
 
-def questions(qOrder, script):
-    print("Now ask a friend to fill in your MadLib!")
-    play = input("press ENTER to continue\n")
-    #later add a secret easter egg input
-    print('Fill in the blanks!')
-    for q in qOrder:
-        if q == 'n': #nouns
-            print(script)
-            fill = input('Enter a noun')
-        if q == 'j': #adjectives
-            pass
-        if q == 'v': #ver
-            pass
-        if q == 'm':
-            pass
+use a recursive function 
 
+def recursion(order, script): #fill_script
+    print(script)
+    if len(order) == 0: #go through the list of indicators
+        return script
+    else:
+        if order[0] == 'n':
+            pass
+            
+ask user for their input
+replace their input in the first underscore
+remove the first index of qOrder
+send that new string and new order through
+    
+'''
+def questionsRecursive(order, script): #fill_script
+    if len(order) == 0: #go through the list of indicators
+        print(script+ '\n')
+        print('Here is your MADLIB')
+    else:
+        print(script +'\n')
+        if order[0] == 's':
+            fill = input('Enter a singular noun: ') 
+        elif order[0] == 'p':
+            fill = input('Enter a plural noun: ')
+        elif order[0] == 'v':
+            fill = input('Enter a verb: ')
+        elif order[0] == 'j':
+            fill = input('Enter a adjective: ')
+        elif order[0] == 'd':
+            fill = input('Enter a adverb: ')
+        elif order[0] == 'm':
+            fill = input('Enter a number: ')
+        #update the script
+        updated = replaceblank(fill, script)
+        order.remove(order[0])
+        #call recursive
+        questionsRecursive(order, updated)
+        
 def play():
     welcome()
     newScript = input_script()
-    blanks(newScript)
+    info = blanks(newScript)
+    order = info[0]
+    blank_script = info[1]
+    questionsRecursive(order,blank_script)
     #blanks(newScript)[0] is the order list
     #blanks(newScript)[1] is the scipt with blanks
     
