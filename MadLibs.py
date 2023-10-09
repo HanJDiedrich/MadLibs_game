@@ -12,7 +12,13 @@ Then it prompts the string with ____s and begins with a prompt for each sig phra
 asks a friend to input their own answers to each box
 returns the completed string
 
+
+INSTRUCTIONS
+
+Welcome to MADLIBS!
+To create your mad lib, write a scentence or few while leaving indicators for the places you wa
 """
+#title card
 def welcome():
     print(("# " *10) +'#')
     print('#' + (' '*19) + '#')
@@ -23,8 +29,9 @@ def welcome():
 
 def input_script():
     userScript = input("Enter your script: ")
+    print()
     return userScript
-    
+
 def blanks(script):
     indicators = ['**nos**','**nop**','**ver**','**adj**','**adv**','**num**']
     qOrder = [] #n, v, j, d, m
@@ -61,7 +68,12 @@ def blanks(script):
     #Now we get the order of and questions that should be asked to fill in the madlib
     return qOrder, script
 
-
+def initiatePlay(script):
+    print(f'Here is your MADLIB!\n{script}\n')
+    print("Now ask a friend to fill in your MadLib!")
+    play = input("press ENTER to continue\n")
+    #later add a secret easter egg input
+    
 def replaceblank(fill, script):
     fill_script = script.replace("_______", fill, 1)
     return fill_script   
@@ -88,10 +100,11 @@ send that new string and new order through
 '''
 def questionsRecursive(order, script): #fill_script
     if len(order) == 0: #go through the list of indicators
-        print(script+ '\n')
-        print('Here is your MADLIB')
-    else:
+        print('Here is your MADLIB:')
         print(script +'\n')
+        print('Hahahaha, thanks for playing!')
+    else:
+        print(script)
         if order[0] == 's':
             fill = input('Enter a singular noun: ') 
         elif order[0] == 'p':
@@ -104,6 +117,7 @@ def questionsRecursive(order, script): #fill_script
             fill = input('Enter a adverb: ')
         elif order[0] == 'm':
             fill = input('Enter a number: ')
+        print()
         #update the script
         updated = replaceblank(fill, script)
         order.remove(order[0])
@@ -116,9 +130,8 @@ def play():
     info = blanks(newScript)
     order = info[0]
     blank_script = info[1]
+    initiatePlay(blank_script)
     questionsRecursive(order,blank_script)
-    #blanks(newScript)[0] is the order list
-    #blanks(newScript)[1] is the scipt with blanks
     
 play()
 
